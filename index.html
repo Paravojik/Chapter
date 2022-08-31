@@ -50,10 +50,12 @@ padding: 8px 0;
          .capcha__text1{
             font-size: 400;
             font-size: 22px;
+            text-align: center;
          }
          .capcha__text2{
             font-size: 200;
             font-size: 14px;
+            text-align: center;
          }
          .capcha__timer{
             font-size: 26px;
@@ -136,10 +138,33 @@ padding: 8px 0;
             right: 0px;
           
          }
+         .Failed__menu{
+            display: none;
+            position: absolute;
+            width: 300px;
+            height: 80px;
+            border-radius: 10px;
+  
+            
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+background-color: rgb(94, 179, 248);
+color: white;
+padding: 8px 0;
+         }
+      
     </style>
 </head>
 <body>
+    
     <div class="wrap">
+        <div class="Failed__menu">
+          
+                <div class="capcha__text1">Ти допустив 10 помилок</div>
+                <div class="capcha__text2">Якщо ти всетаки не робот перезавантаж сторінку</div>
+ 
+        </div>
         <div class="set" id="set"></div>
         <div class="capcha">
             <div class="capcha__top">
@@ -174,12 +199,20 @@ padding: 8px 0;
         let bfColor='rgb(242, 77, 77)'
         let countOfSpin=15
         let thisSpin=0
-        let goTime=2000
+        let goTime=1500
         let generatedNumber=Math.round(Math.random()*4)
         capcha__znak.src=arrows[generatedNumber]
         let timerInterval
         let SpinTimeout
         let timerTime=goTime
+        let failedAttemp=0
+        function Fail(){
+            failedAttemp++;
+            if(failedAttemp>=10){
+                $('.Failed__menu').css('display','flex')
+                $('.capcha').css('display','none')
+            }
+        }
         $('#set').click(function(){
     alert('Ти знайшов секретку')
     countOfSpin=prompt('Скільки ти хочеш прокруток')
@@ -202,6 +235,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               }
@@ -223,6 +257,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               }
@@ -244,6 +279,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               } capcha__timer.innerText='0.00 S'
@@ -264,6 +300,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               } 
@@ -286,6 +323,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               }
@@ -312,6 +350,7 @@ if(e.keyCode==38){
               }
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
               console.log('sdfsdf')
               capcha__timer.innerText='0.00 S'
             generatedNumber=Math.round(Math.random()*4)
@@ -335,6 +374,7 @@ if(e.keyCode==38){
               }
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 console.log('sdfsdf')
              
               capcha__timer.innerText='0.00 S'
@@ -356,6 +396,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               }
@@ -379,6 +420,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               } 
@@ -402,6 +444,7 @@ if(e.keyCode==38){
             }else{
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(thisSpin<countOfSpin){
                 $('.wrap').css('backgroundColor',bfColor)
               } 
@@ -430,6 +473,7 @@ if(e.keyCode==38){
                 },300)
                 clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                
                 $('.capcha').css('display','none')
                 thisSpin=0
             capcha__timer.innerText='0.00 S'
@@ -448,6 +492,7 @@ if(e.keyCode==38){
             timerTime=goTime
             clearInterval(timerInterval)
                 clearInterval(SpinTimeout)
+                
                 timerInterval=setInterval(function(){
                     
                     timerTime=timerTime-10
@@ -474,6 +519,7 @@ if(e.keyCode==38){
                     },300)
                     clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
+                Fail()
                 if(timerTime==0){
                     clearInterval(SpinTimeout)
                 clearInterval(timerInterval)
